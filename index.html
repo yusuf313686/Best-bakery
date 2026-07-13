@@ -1,0 +1,1687 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<!--
+  PASTANE GOLDEN MASTER v7.2 — Yusuf Yozgatlı
+  TÜM AYARLAR VE AÇIKLAMALAR config.js DOSYASINDA. Bu dosyaya DOKUNULMAZ.
+  TEK İSTİSNA: aşağıdaki OG etiketleri (WhatsApp link önizlemesi) elle doldurulur.
+  index.html + config.js AYNI klasörde durmak ZORUNDA.
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Pastane</title>
+
+<!-- ═══ WHATSAPP LİNK ÖNİZLEMESİ (OG) — HER DEMODA ELLE DOLDUR ═══
+  WhatsApp/IG linki açmadan bu etiketleri okur, JS ÇALIŞTIRMAZ.
+  O yüzden CONFIG'den doldurulamıyor — template'in TEK elle alanı.
+  og:image TAM adres ister: https://yusuf313686.github.io/REPO-ADI/logo.jpg
+  Doğru doldurulunca DM'de link = logo + isim + slogan kartı olarak açılır. -->
+<meta property="og:title" content="Best Bakery">
+<meta property="og:description" content="Size Özel Butik Tasarım Pastalar — İstanbul / Maltepe">
+<meta property="og:image" content="https://yusuf313686.github.io/Best-bakery/logo_3.jpg">
+<meta property="og:type" content="website">
+<!-- ═══ FONT — LOGONUN TARZINA GÖRE SEÇ ═══
+  Logo el yazısı/zarif ise  → Playfair Display (mevcut) veya Cormorant Garamond
+  Logo modern/düz ise       → Poppins veya Montserrat
+  Değiştirmek için: 1) aşağıdaki linkteki font adını değiştir
+                    2) CSS'te --font-head satırındaki adı da değiştir
+  TEST: fonts.google.com'da "Pastane Şubeleri" yaz — ğ/ş/İ bozuksa o fontu KULLANMA -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<script src="config.js"></script>
+
+<style>
+:root{
+  /* Renkler JS'den basılıyor, buradakiler sadece fallback */
+  --primary:#7B3F2A; --secondary:#4A2618; --accent:#C99B3F;
+  --bg:#FBF6EE; --text:#332218;
+  --font-head:'Playfair Display',serif;
+  --font-body:'Mulish',sans-serif;
+  --radius:14px;
+  --shadow:0 6px 24px rgba(0,0,0,.09);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  font-size:16px;               /* 16px altına inme — mobil zoom tetikler */
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+
+/* ---------- Header ---------- */
+header{
+  background:var(--bg);
+  border-bottom:2px solid var(--accent);
+  padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:50;
+}
+.brand{
+  font-family:var(--font-head);
+  font-size:1.35rem;font-weight:700;color:var(--primary);
+}
+.header-cta{
+  background:var(--primary);color:#fff;
+  padding:10px 18px;border-radius:999px;
+  font-weight:700;font-size:.9rem;
+  min-height:44px;display:inline-flex;align-items:center;
+}
+
+/* ---------- Hero ---------- */
+.hero{
+  text-align:center;
+  padding:64px 24px 56px;
+  background:linear-gradient(180deg, var(--bg) 0%, color-mix(in srgb, var(--accent) 12%, var(--bg)) 100%);
+}
+.hero h1{
+  font-family:var(--font-head);
+  font-size:clamp(2rem, 6vw, 3.2rem);
+  color:var(--primary);
+  line-height:1.15;
+  margin-bottom:14px;
+}
+.hero p{
+  font-size:1.1rem;max-width:520px;margin:0 auto 28px;
+  opacity:.85;
+}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  min-height:48px;padding:12px 26px;      /* touch: min 48px */
+  border-radius:999px;font-weight:800;font-size:1rem;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.btn:active{transform:scale(.97)}
+.btn-wa{background:#25D366;color:#fff;box-shadow:var(--shadow)}
+.btn-form{background:var(--accent);color:#fff;box-shadow:var(--shadow)}
+.btn-tel{background:transparent;color:var(--primary);border:2px solid var(--primary)}
+.hero .btn+.btn{margin-left:10px}
+
+/* ---------- Sections ---------- */
+section{padding:56px 20px;max-width:1100px;margin:0 auto}
+.section-title{
+  font-family:var(--font-head);
+  font-size:clamp(1.6rem, 4vw, 2.2rem);
+  color:var(--primary);text-align:center;margin-bottom:8px;
+}
+.section-sub{text-align:center;opacity:.7;margin-bottom:36px}
+
+/* ---------- Ürünler ---------- */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+  gap:24px;
+}
+.card{
+  background:#fff;border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow);
+  display:flex;flex-direction:column;
+}
+.card-img{
+  aspect-ratio:1/1;               /* IG kare formatı — barlar frame dışında kalır */
+  object-fit:cover;object-position:center;
+  background:color-mix(in srgb, var(--accent) 18%, #e9e2d6);
+  width:100%;
+}
+.card-body{padding:18px 18px 20px;flex:1;display:flex;flex-direction:column;gap:8px}
+.card-body h3{font-family:var(--font-head);font-size:1.2rem;color:var(--secondary)}
+.card-body p{font-size:.92rem;opacity:.75;flex:1}
+.card-wa{
+  margin-top:6px;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  min-height:48px;border-radius:10px;
+  background:color-mix(in srgb, var(--accent) 22%, #fff);
+  color:var(--secondary);font-weight:800;font-size:.9rem;
+  border:1.5px solid var(--accent);
+  transition:background .2s;
+}
+.card-wa:hover{background:var(--accent);color:#fff}
+img.card-img{cursor:zoom-in}
+
+/* ---------- Lightbox (v7): sağa dokun=ileri, sola dokun=geri ---------- */
+.lb-overlay{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(12,9,6,.94);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .22s;
+  touch-action:none;
+}
+.lb-overlay.on{opacity:1}
+.lb-overlay img{
+  max-width:94vw;max-height:76vh;
+  border-radius:10px;object-fit:contain;
+  box-shadow:0 12px 48px rgba(0,0,0,.5);
+  transition:opacity .18s;
+  pointer-events:none;
+}
+.lb-cap{
+  position:absolute;left:0;right:0;bottom:max(20px, env(safe-area-inset-bottom));
+  text-align:center;color:#fff;font-family:var(--font-head);
+  font-size:1.05rem;padding:0 60px;pointer-events:none;
+  text-shadow:0 2px 8px rgba(0,0,0,.6);
+}
+.lb-count{
+  position:absolute;top:16px;left:18px;
+  color:#fff;opacity:.75;font-size:.9rem;font-weight:700;
+  pointer-events:none;
+}
+.lb-close{
+  position:absolute;top:8px;right:8px;
+  width:48px;height:48px;border:none;background:none;
+  color:#fff;font-size:1.7rem;line-height:1;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+.lb-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  color:#fff;opacity:.45;font-size:2rem;pointer-events:none;
+  user-select:none;
+}
+.lb-arrow.l{left:10px}
+.lb-arrow.r{right:10px}
+@media (prefers-reduced-motion: reduce){
+  .lb-overlay,.lb-overlay img{transition:none}
+}
+
+/* ---------- Eksik bilgi bekçisi (v7) — sadece placeholder kalınca ---------- */
+.guard-banner{
+  position:sticky;top:0;z-index:600;
+  background:#B3261E;color:#fff;
+  padding:12px 16px;font-size:.9rem;font-weight:700;
+  line-height:1.5;
+}
+.guard-banner b{text-decoration:underline}
+
+/* ---------- Dijital Menü ---------- */
+.menu-wrap{max-width:680px;margin:0 auto}
+.menu-cat{margin-bottom:34px}
+.menu-cat h3{
+  font-family:var(--font-head);
+  font-size:1.35rem;color:var(--primary);
+  border-bottom:2px solid var(--accent);
+  padding-bottom:8px;margin-bottom:14px;
+}
+.menu-item{
+  display:flex;align-items:baseline;gap:8px;
+  padding:9px 0;font-size:1rem;
+}
+.menu-item .dots{
+  flex:1;border-bottom:2px dotted color-mix(in srgb, var(--text) 25%, transparent);
+  transform:translateY(-4px);
+}
+.menu-item .price{font-weight:800;color:var(--secondary);white-space:nowrap}
+.menu-desc{
+  font-size:.82rem;opacity:.62;margin:-4px 0 6px;
+  padding-left:2px;font-style:italic;
+}
+.menu-cal{
+  font-size:.78rem;opacity:.55;margin:-2px 0 6px;
+  padding-left:2px;font-weight:700;
+}
+.menu-note{
+  text-align:center;font-size:.82rem;opacity:.6;margin-top:8px;
+}
+
+/* ---------- Hakkında ---------- */
+.about{
+  background:var(--secondary);color:#fff;
+  max-width:none;
+}
+.about-inner{max-width:720px;margin:0 auto;text-align:center}
+.about .section-title{color:var(--accent)}
+.about p{opacity:.92;font-size:1.05rem}
+
+/* ---------- Şubeler ---------- */
+.branch{
+  background:#fff;border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:22px;
+  display:flex;flex-direction:column;gap:10px;
+}
+.branch h3{font-family:var(--font-head);color:var(--primary);font-size:1.25rem}
+.branch .hours{font-size:.88rem;font-weight:700;color:var(--accent)}
+.branch-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.branch-actions a{
+  flex:1;min-width:120px;min-height:48px;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  border-radius:10px;font-weight:700;font-size:.9rem;
+  border:1.5px solid var(--primary);color:var(--primary);
+}
+.branch-actions a:first-child{background:var(--primary);color:#fff}
+
+/* ---------- Footer ---------- */
+footer{
+  background:var(--secondary);color:#fff;
+  text-align:center;padding:36px 20px 90px;  /* alt boşluk: WA float'a yer */
+}
+footer .brand{color:var(--accent);margin-bottom:8px;display:block}
+footer a{border-bottom:1px dotted rgba(255,255,255,.4)}
+footer .credit{margin-top:18px;font-size:.8rem;opacity:.55}
+
+/* ---------- Sticky WhatsApp Float ---------- */
+.wa-float{
+  position:fixed;right:18px;bottom:18px;z-index:100;
+  width:58px;height:58px;border-radius:50%;
+  background:#25D366;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(37,211,102,.45);
+  transition:transform .2s;
+}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:30px;height:30px}
+
+/* ---------- Kenar Dekoru (filigran) ---------- */
+.decor{
+  position:fixed;top:0;bottom:0;width:110px;
+  z-index:-1;pointer-events:none;
+  background-repeat:repeat-y;background-size:contain;
+  display:none;
+}
+.decor.left{left:0}
+.decor.right{right:0;transform:scaleX(-1)}
+@media (max-width:480px){ .decor{width:64px} }
+
+/* ---------- Sepet ---------- */
+.menu-ctrl{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-left:10px;flex:none;
+}
+.menu-add,.menu-sub{
+  width:34px;height:34px;flex:none;
+  border-radius:50%;border:1.5px solid var(--primary);
+  background:#fff;color:var(--primary);
+  font-size:1.15rem;font-weight:800;line-height:1;
+  cursor:pointer;font-family:var(--font-body);
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background .15s;
+}
+.menu-add:active,.menu-sub:active{background:var(--primary);color:#fff}
+.menu-qty{
+  min-width:20px;text-align:center;
+  font-weight:800;color:var(--secondary);font-size:1rem;
+}
+.menu-ctrl .menu-sub,.menu-ctrl .menu-qty{display:none}
+.menu-ctrl.active .menu-sub{display:inline-flex}
+.menu-ctrl.active .menu-qty{display:inline-block}
+.cart-float{
+  position:fixed;right:18px;bottom:88px;z-index:100;
+  width:58px;height:58px;border-radius:50%;
+  background:var(--primary);color:#fff;border:none;cursor:pointer;
+  display:none;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.3);
+  transition:transform .2s;font-size:1.5rem;
+  padding:0 0 3px 4px;   /* emoji fontta sola-alta oturuyor, ortala */
+}
+.cart-float:hover{transform:scale(1.08)}
+.cart-badge{
+  position:absolute;top:-4px;right:-4px;
+  min-width:22px;height:22px;border-radius:11px;
+  background:var(--accent);color:#fff;
+  font-size:.75rem;font-weight:800;font-family:var(--font-body);
+  display:flex;align-items:center;justify-content:center;
+  padding:0 5px;border:2px solid var(--bg);
+}
+.cart-panel{
+  position:fixed;inset:0;z-index:200;
+  background:var(--bg);
+  overflow-y:auto;
+  padding:0 20px 40px;
+  transform:translateY(100%);
+  visibility:hidden;
+  transition:transform .35s ease, visibility .35s;
+}
+.cart-panel.open{
+  transform:translateY(0);
+  visibility:visible;
+}
+@keyframes badgePop{
+  0%{transform:scale(1)} 50%{transform:scale(1.45)} 100%{transform:scale(1)}
+}
+.cart-badge.pop{animation:badgePop .3s ease}
+.cart-head{
+  position:sticky;top:0;background:var(--bg);
+  display:flex;align-items:center;gap:12px;
+  padding:16px 0 12px;margin-bottom:8px;
+  border-bottom:2px solid var(--accent);z-index:5;
+}
+.cart-head h3{
+  font-family:var(--font-head);color:var(--primary);
+  font-size:1.4rem;
+}
+.cart-back{
+  width:42px;height:42px;flex:none;
+  border-radius:50%;border:1.5px solid var(--primary);
+  background:#fff;color:var(--primary);
+  font-size:1.3rem;font-weight:800;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:var(--font-body);line-height:1;
+  padding:0 0 4px;   /* ‹ karakteri fontta alçak oturuyor, yukarı it */
+}
+.cart-panel.dragging{transition:none}
+.cart-list{max-width:600px;margin:0 auto}
+.cart-item{
+  display:flex;align-items:center;gap:10px;
+  padding:13px 0;border-bottom:1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  font-size:.98rem;
+}
+.cart-item .ci-name{flex:1;font-weight:700;min-width:0}
+.cart-item .ci-price{
+  font-weight:800;color:var(--secondary);
+  white-space:nowrap;font-size:.9rem;
+}
+.cart-qty{
+  display:flex;align-items:center;gap:6px;flex:none;
+}
+.cart-qty button{
+  width:32px;height:32px;border-radius:8px;border:1.5px solid var(--primary);
+  background:#fff;color:var(--primary);font-weight:800;font-size:1rem;
+  cursor:pointer;font-family:var(--font-body);
+}
+.cart-qty span{min-width:22px;text-align:center;font-weight:800}
+.cart-empty{opacity:.6;font-size:.95rem;text-align:center;padding:30px 0}
+.cart-total{
+  max-width:600px;margin:14px auto 0;
+  text-align:right;font-weight:800;font-size:1.15rem;
+  color:var(--secondary);
+  border-top:2px solid var(--accent);padding-top:12px;
+  display:none;
+}
+.cart-form{max-width:600px;margin:26px auto 0}
+
+/* ---------- Fiyat güncelleme tarihi ---------- */
+.price-updated{
+  text-align:center;font-size:.85rem;font-weight:700;
+  color:var(--secondary);
+  background:color-mix(in srgb, var(--accent) 14%, #fff);
+  border:1.5px solid var(--accent);border-radius:999px;
+  padding:8px 18px;display:none;width:fit-content;
+  margin:0 auto 28px;
+}
+
+/* ---------- Duyuru & tatil bandı ---------- */
+.top-bar{
+  background:var(--primary);color:#fff;
+  text-align:center;font-weight:700;font-size:.88rem;
+  padding:9px 16px;line-height:1.45;display:none;
+}
+.top-bar.vac{background:var(--accent)}
+
+/* ---------- Sipariş koşulları kutusu ---------- */
+.form-rules-box{
+  border:2px solid var(--primary);border-radius:12px;
+  background:#fff;padding:14px 18px;margin-bottom:16px;
+}
+.form-rules-box h4{
+  font-family:var(--font-head);color:var(--primary);
+  font-size:1.05rem;margin-bottom:8px;
+}
+.form-rules-box ul{
+  margin:0;padding-left:18px;
+  font-size:.9rem;line-height:1.7;
+}
+
+/* ---------- SSS ---------- */
+.faq-wrap{max-width:680px;margin:0 auto}
+.faq-item{
+  background:#fff;border-radius:var(--radius);
+  box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden;
+}
+.faq-item summary{
+  list-style:none;cursor:pointer;
+  padding:16px 18px;min-height:48px;
+  font-weight:800;color:var(--primary);font-size:.98rem;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{
+  content:'+';font-size:1.35rem;color:var(--accent);
+  font-weight:800;flex:none;
+}
+.faq-item[open] summary::after{content:'−'}
+.faq-item p{padding:0 18px 16px;font-size:.93rem;opacity:.8}
+
+/* ---------- Logo açılış efekti ---------- */
+.intro-overlay{
+  position:fixed;inset:0;z-index:500;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .5s ease .35s;
+}
+.intro-overlay.done{opacity:0;pointer-events:none}
+.intro-overlay .intro-box{text-align:center}
+.intro-overlay img{
+  width:116px;height:116px;border-radius:50%;
+  object-fit:cover;border:3px solid var(--accent);
+  margin:0 auto;
+  transition:transform .8s cubic-bezier(.22,.61,.36,1);
+  animation:introPop .5s ease;
+}
+.intro-overlay .intro-hi{
+  font-family:var(--font-head);color:var(--primary);
+  font-size:1.3rem;font-weight:700;margin-top:14px;
+  transition:opacity .3s;
+}
+@keyframes introPop{
+  from{transform:scale(.6);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+/* ---------- Form üstü fotoğraf notu kutusu ---------- */
+.form-note-box{
+  border:2.5px solid var(--accent);border-radius:12px;
+  background:color-mix(in srgb, var(--accent) 12%, #fff);
+  padding:14px 16px;margin-bottom:22px;
+  font-weight:800;font-size:.95rem;color:var(--secondary);
+  text-align:center;line-height:1.5;
+}
+
+/* ---------- Tahmini fiyat kutusu ---------- */
+.price-estimate{
+  border:2px solid var(--accent);border-radius:12px;
+  background:color-mix(in srgb, var(--accent) 10%, #fff);
+  padding:14px 16px;margin-bottom:18px;text-align:center;
+  font-size:1rem;color:var(--secondary);font-weight:700;
+}
+.price-estimate b{
+  font-size:1.3rem;color:var(--primary);
+  font-family:var(--font-head);margin-left:6px;
+}
+.price-estimate .pe-note{
+  display:block;font-size:.8rem;opacity:.72;
+  margin-top:5px;font-weight:700;
+}
+
+/* ---------- Sipariş Formu ---------- */
+.order-form{max-width:600px;margin:0 auto}
+.form-group{margin-bottom:20px}
+.form-group label{
+  display:block;font-weight:700;color:var(--primary);
+  font-size:.95rem;margin-bottom:6px;
+  font-family:var(--font-head);
+}
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;padding:12px 14px;border:1.5px solid #ddd;
+  border-radius:10px;font-family:var(--font-body);
+  font-size:1rem;background:#fff;color:var(--text);
+  transition:border-color .2s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+  outline:none;border-color:var(--primary);
+}
+.form-group textarea{resize:vertical;min-height:80px}
+.checkbox-grid{
+  display:flex;flex-wrap:wrap;gap:10px;
+}
+.checkbox-grid label{
+  display:flex;align-items:center;gap:6px;
+  font-weight:400;font-size:.95rem;cursor:pointer;
+  font-family:var(--font-body);
+  background:#fff;border:1.5px solid #ddd;
+  padding:8px 14px;border-radius:8px;
+  transition:border-color .2s, background .2s;
+}
+.checkbox-grid label:has(input:checked){
+  border-color:var(--primary);
+  background:color-mix(in srgb, var(--primary) 8%, #fff);
+}
+.checkbox-grid input[type="checkbox"]{
+  width:18px;height:18px;accent-color:var(--primary);
+}
+.btn-order{
+  width:100%;min-height:52px;border:none;cursor:pointer;
+  background:var(--primary);color:#fff;
+  font-family:var(--font-body);font-weight:800;font-size:1.05rem;
+  border-radius:999px;display:flex;align-items:center;
+  justify-content:center;gap:8px;
+  box-shadow:var(--shadow);transition:transform .2s;
+}
+.btn-order:active{transform:scale(.97)}
+.form-notes{
+  margin-top:20px;font-size:.85rem;opacity:.7;
+  line-height:1.6;
+}
+
+/* ---------- Scroll animasyonu ---------- */
+.reveal{
+  opacity:0;transform:translateY(24px);
+  transition:opacity .6s ease, transform .6s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .cart-panel{transition:none}
+  .cart-badge.pop{animation:none}
+  .intro-overlay{display:none}
+  html{scroll-behavior:auto}
+}
+
+/* ---------- Breakpoints (sadece 2 tane, mobile-first) ---------- */
+@media (min-width:640px){
+  section{padding:72px 32px}
+}
+@media (max-width:480px){
+  .hero .btn+.btn{margin-left:0;margin-top:10px}
+  .hero .btn{width:100%;justify-content:center}
+  /* Dar ekranda header: isim tek satır, ara linkler gizli */
+  header{padding:10px 14px;gap:8px}
+  .brand{font-size:1.02rem;white-space:nowrap}
+  #brandLogo{width:36px !important;height:36px !important}
+  header nav a:not(.header-cta){display:none}
+  .header-cta{padding:8px 14px;font-size:.82rem;white-space:nowrap}
+}
+</style>
+</head>
+<body>
+
+<div class="decor left" id="decorLeft" aria-hidden="true"></div>
+<div class="decor right" id="decorRight" aria-hidden="true"></div>
+
+<div class="top-bar" id="topBar"></div>
+<div class="top-bar vac" id="vacBar"></div>
+
+<header>
+  <span style="display:flex;align-items:center;gap:10px">
+    <img id="brandLogo" alt="" style="display:none;width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--accent)">
+    <span class="brand" data-bind="name"></span>
+  </span>
+  <nav style="display:flex;gap:14px;align-items:center">
+    <a href="#menu" id="navMenu" style="font-weight:700;font-size:.9rem;color:var(--primary)">Menü</a>
+    <a href="#siparis" style="font-weight:700;font-size:.9rem;color:var(--primary)">Sipariş</a>
+    <a class="header-cta" href="#siparis">Sipariş Ver</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1 data-bind="name"></h1>
+  <p data-bind="tagline"></p>
+  <a class="btn btn-form" href="#siparis">Sipariş Formunu Gör</a>
+  <a class="btn btn-tel" id="heroTel" href="#">Hemen Ara</a>
+</div>
+
+<section id="urunler">
+  <h2 class="section-title reveal">Ürünlerimiz</h2>
+  <p class="section-sub reveal">Her gün taze, el yapımı</p>
+  <div class="grid" id="productGrid"><!-- JS dolduruyor --></div>
+</section>
+
+<section id="cupcakes" style="display:none">
+  <h2 class="section-title reveal">Cupcake'lerimiz</h2>
+  <p class="section-sub reveal">Tek dokunuşla WhatsApp'tan sipariş verin</p>
+  <div class="grid" id="cupcakeGrid"><!-- JS dolduruyor --></div>
+</section>
+
+<section id="menu">
+  <h2 class="section-title reveal">Menü & Fiyatlar</h2>
+  <p class="section-sub reveal" id="menuSub"></p>
+  <p class="price-updated" id="priceUpdated"></p>
+  <div class="menu-wrap" id="menuWrap"><!-- JS dolduruyor --></div>
+  <p class="menu-note reveal">Fiyatlarımız güncel olup KDV dahildir.</p>
+</section>
+
+<section id="siparis" style="display:none">
+  <h2 class="section-title reveal">Özel Pasta Siparişi</h2>
+  <p class="section-sub reveal">Formu doldurun, WhatsApp'tan hemen iletilsin</p>
+  <div class="order-form reveal" id="orderForm">
+    <!-- JS dolduruyor -->
+  </div>
+</section>
+
+<section class="about">
+  <div class="about-inner">
+    <h2 class="section-title reveal">Hikâyemiz</h2>
+    <p class="reveal" data-bind="about"></p>
+  </div>
+</section>
+
+<section id="sss" style="display:none">
+  <h2 class="section-title reveal">Sıkça Sorulan Sorular</h2>
+  <p class="section-sub reveal">Merak ettikleriniz</p>
+  <div class="faq-wrap" id="faqWrap"><!-- JS dolduruyor --></div>
+</section>
+
+<section id="subeler">
+  <h2 class="section-title reveal">Şubelerimiz</h2>
+  <p class="section-sub reveal">Size en yakın şubemize bekleriz</p>
+  <div class="grid" id="branchGrid"><!-- JS dolduruyor --></div>
+</section>
+
+<footer>
+  <span class="brand" data-bind="name"></span>
+  <p>Instagram: <a id="igLink" href="#" target="_blank" rel="noopener">@<span data-bind="instagram"></span></a></p>
+  <p style="margin-top:6px"><a id="footerTel" href="#">Telefon ile ulaşın</a></p>
+  <p class="credit">Tasarım: Yusuf Yozgatlı</p>
+</footer>
+
+<button class="cart-float" id="cartFloat" aria-label="Sepetim">
+  🛒
+  <span class="cart-badge" id="cartBadge">0</span>
+</button>
+
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-head">
+    <button class="cart-back" id="cartBack" aria-label="Geri dön">‹</button>
+    <h3>Sepetim</h3>
+  </div>
+  <div class="cart-list" id="cartItems"></div>
+  <p class="cart-total" id="cartTotal"></p>
+  <div class="cart-form" id="cartForm">
+    <div class="form-group">
+      <label>Ad Soyad</label>
+      <input type="text" id="cfName" placeholder="Adınız Soyadınız">
+    </div>
+    <div class="form-group">
+      <label>Telefon</label>
+      <input type="tel" id="cfPhone" placeholder="(5XX) XXX XX XX">
+    </div>
+    <div class="form-group">
+      <label>Teslim Tarihi</label>
+      <input type="date" id="cfDate">
+    </div>
+    <div class="form-group">
+      <label>Teslim Alınacak Şube</label>
+      <select id="cfBranch"></select>
+    </div>
+    <div class="form-group" id="cfDeliveryGroup" style="display:none">
+      <label>Teslimat</label>
+      <select id="cfDelivery"></select>
+    </div>
+    <div class="form-group" id="cfAddressGroup" style="display:none">
+      <label>Teslimat Adresi</label>
+      <textarea id="cfAddress" placeholder="Mahalle, cadde, no, ilçe / şehir..."></textarea>
+    </div>
+    <div class="form-group" id="cfTimeGroup" style="display:none">
+      <label>Teslim Saati</label>
+      <select id="cfTime"></select>
+    </div>
+    <div class="form-group" id="cfPayGroup" style="display:none">
+      <label>Ödeme Yöntemi</label>
+      <select id="cfPay"></select>
+    </div>
+    <div class="form-group">
+      <label>Not (isteğe bağlı)</label>
+      <textarea id="cfMsg" placeholder="Eklemek istediğiniz bir not..."></textarea>
+    </div>
+    <button type="button" class="btn-order" id="cfSubmit">Sipariş Ver</button>
+  </div>
+</div>
+
+<a class="wa-float" id="floatWa" href="#" aria-label="WhatsApp ile iletişim">
+  <svg viewBox="0 0 32 32" fill="currentColor"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.6.8 5 2.3 7L4 29l7.3-2.2c1.9 1 4 1.6 6.2 1.6 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-2 0-3.9-.6-5.5-1.6l-.4-.2-4.1 1.2 1.2-4-.3-.4C5.7 18.2 5 16.7 5 15 5 9 9.9 4.1 16 4.1S27 9 27 15s-4.9 9.8-11 9.8zm5.6-7.2c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6 0-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.1 1.3 3.3c.2.2 2.3 3.6 5.7 5 .8.3 1.4.5 1.9.7.8.2 1.5.2 2.1.1.6-.1 1.8-.8 2.1-1.5.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.4z"/></svg>
+</a>
+
+<script>
+/* ═══════════ RENDER — dokunma ═══════════ */
+(function(){
+  // config.js yüklenemediyse boş sayfa yerine net uyarı göster
+  if (typeof CONFIG === 'undefined') {
+    const b = document.createElement('div');
+    b.className = 'guard-banner';
+    b.textContent = '⚠️ config.js YÜKLENEMEDİ — dosya index.html ile AYNI klasörde ve adı tam olarak "config.js" olmalı.';
+    document.body.prepend(b);
+    return;
+  }
+  const C = CONFIG;
+
+  // Özel karakter güvenliği: CONFIG'ten HTML'e basılan her metin buradan geçer
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, ch =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+
+  // Türkçe fiyat ayrıştırma: "1.250 TL" → 1250, "12,50 TL" → 12.5
+  const parseTL = v => {
+    let s = String(v ?? '').replace(/[^\d.,]/g, '');
+    if (!s) return 0;
+    if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.');
+    else if (/\.\d{3}(\.|$)/.test(s)) s = s.replace(/\./g, '');
+    return parseFloat(s) || 0;
+  };
+
+  // Renkleri :root'a bas
+  const r = document.documentElement.style;
+  for (const [k,v] of Object.entries(C.colors))
+    r.setProperty('--'+ (k==='bg'?'bg':k==='text'?'text':k), v);
+
+  document.getElementById('pageTitle').textContent =
+    C.name + " | " + C.tagline;
+
+  // Logo (varsa göster)
+  if (C.logo) {
+    const lg = document.getElementById('brandLogo');
+    lg.src = C.logo;
+    lg.style.display = 'block';
+  }
+
+  // data-bind alanları
+  document.querySelectorAll('[data-bind]').forEach(el=>{
+    el.textContent = C[el.dataset.bind] ?? '';
+  });
+
+  // Duyuru & tatil bantları
+  if (C.announcement) {
+    const t = document.getElementById('topBar');
+    t.textContent = C.announcement;
+    t.style.display = 'block';
+  }
+  if (C.vacationNote) {
+    const v = document.getElementById('vacBar');
+    v.textContent = C.vacationNote;
+    v.style.display = 'block';
+  }
+
+  // Menü boşsa: bölüm + header linki gizle (butik pastacı modu)
+  const hasMenu = Array.isArray(C.menu) && C.menu.length > 0;
+  if (!hasMenu) {
+    document.getElementById('menu').style.display = 'none';
+    const nm = document.getElementById('navMenu');
+    if (nm) nm.style.display = 'none';
+  }
+
+  // WhatsApp linkleri
+  const wa = msg => `https://wa.me/${C.whatsapp}?text=${encodeURIComponent(msg)}`;
+  const genelMsg = `Merhaba, ${C.name} hakkında bilgi almak istiyorum.`;
+  document.getElementById('floatWa').href = wa(genelMsg);
+
+  /* ---------- v6: site indirimi + ödeme yöntemleri ---------- */
+  const PMs = Array.isArray(C.paymentMethods) ? C.paymentMethods : [];
+  const payOn = PMs.length > 0;
+  const siteDisc = C.siteDiscount || 0;
+  const payOptHtml = PMs.map(p =>
+    `<option value="${esc(p.name)}">${esc(p.name)}${p.discount ? ' (%' + p.discount + ' indirim)' : ''}</option>`
+  ).join('');
+  const payDiscOf = n => {
+    const m = PMs.find(p => p.name === n);
+    return m ? (m.discount || 0) : 0;
+  };
+  const fmtTL = n => Math.round(n).toLocaleString('tr-TR') + ' TL';
+  // Toplam indirim = site + seçili ödeme yöntemi (oranlar TOPLANIR)
+  const discCalc = (sub, payName) => {
+    const pd = payOn ? payDiscOf(payName) : 0;
+    const rate = siteDisc + pd;
+    return {
+      rate, pd,
+      siteAmt: sub * siteDisc / 100,
+      payAmt: sub * pd / 100,
+      total: sub * (100 - rate) / 100
+    };
+  };
+
+  /* ---------- v7.1: teslimat yöntemi, teslim saati, mum, Sheets ---------- */
+  const OF = C.orderForm || {};
+  const DMs = Array.isArray(OF.deliveryMethods) ? OF.deliveryMethods : [];
+  const dmOn = DMs.length > 0;
+  const dmOptHtml = DMs.map(d => `<option value="${esc(d.name)}">${esc(d.name)}</option>`).join('');
+  const dmNeedsAddr = n => { const m = DMs.find(d => d.name === n); return !!(m && m.address); };
+  const timeOpts = (() => {
+    const m = /^(\d{1,2})(?::\d{2})?\s*-\s*(\d{1,2})(?::\d{2})?$/.exec(String(OF.deliveryTimeRange || '').trim());
+    if (!m) return '';
+    let o = '';
+    for (let h = +m[1]; h <= +m[2]; h++) {
+      const t = String(h).padStart(2, '0') + ':00';
+      o += `<option value="${t}">${t}</option>`;
+    }
+    return o;
+  })();
+  const timeOn = !!timeOpts;
+  const CANDLES = Array.isArray(OF.candles) ? OF.candles : [];
+  const candleOn = CANDLES.length > 0;
+  const candleOptHtml = CANDLES.map(cd =>
+    `<option value="${esc(cd.name)}">${esc(cd.name)}${cd.price ? ' (+' + cd.price + ' TL)' : ''}</option>`).join('');
+  // Sipariş Sheets kaydı — fire-and-forget, WhatsApp akışını asla bekletmez
+  const logSheet = payload => {
+    if (!C.sheetsUrl) return;
+    try {
+      fetch(C.sheetsUrl, { method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload) });
+    } catch (e) {}
+  };
+
+  // Kenar dekoru (filigran)
+  if (C.decor && C.decor.img) {
+    const side = C.decor.side || 'both';
+    const op = C.decor.opacity ?? 0.08;
+    [['decorLeft','left'],['decorRight','right']].forEach(([id,s])=>{
+      if (side === 'both' || side === s) {
+        const d = document.getElementById(id);
+        d.style.backgroundImage = `url('${C.decor.img}')`;
+        d.style.opacity = op;
+        d.style.display = 'block';
+      }
+    });
+  }
+
+  // Fiyat güncelleme tarihi
+  if (C.priceUpdated) {
+    const pu = document.getElementById('priceUpdated');
+    pu.textContent = 'Son fiyat güncellemesi: ' + C.priceUpdated;
+    pu.style.display = 'block';
+  }
+  ['heroTel','footerTel'].forEach(id=>{
+    document.getElementById(id).href = 'tel:' + C.phone;
+  });
+  document.getElementById('igLink').href = 'https://instagram.com/' + C.instagram;
+
+  // Ürün kartları
+  const pg = document.getElementById('productGrid');
+  C.products.forEach((p,i)=>{
+    const card = document.createElement('div');
+    card.className = 'card reveal';
+    card.style.transitionDelay = (i%3)*90 + 'ms';   // stagger
+    const imgHtml = p.img
+      ? `<img class="card-img" src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy">`
+      : `<div class="card-img" role="img" aria-label="${esc(p.name)}"></div>`;
+    const btnHtml = `<a class="card-wa" href="#siparis">Sipariş Ver</a>`;
+    card.innerHTML = `
+      ${imgHtml}
+      <div class="card-body">
+        <h3>${esc(p.name)}</h3>
+        <p>${esc(p.desc)}</p>
+        ${btnHtml}
+      </div>`;
+    pg.appendChild(card);
+  });
+
+  /* ---------- Cupcake bölümü (v7.2) ---------- */
+  // cupcakes doluysa bölüm görünür; her kartın butonu ürün adıyla
+  // ÖNCEDEN DOLDURULMUŞ WhatsApp mesajı açar (form yok, direkt satış).
+  // Emoji ve Türkçe karakter serbest — encodeURIComponent UTF-8 encode eder.
+  const CUP = Array.isArray(C.cupcakes) ? C.cupcakes : [];
+  if (CUP.length) {
+    document.getElementById('cupcakes').style.display = '';
+    const cg = document.getElementById('cupcakeGrid');
+    CUP.forEach((p, i) => {
+      const card = document.createElement('div');
+      card.className = 'card reveal';
+      card.style.transitionDelay = (i%3)*90 + 'ms';
+      const imgHtml = p.img
+        ? `<img class="card-img" src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy">`
+        : `<div class="card-img" role="img" aria-label="${esc(p.name)}"></div>`;
+      const priceHtml = p.price
+        ? `<p style="font-weight:800;color:var(--secondary);opacity:1">${esc(p.price)}</p>` : '';
+      const cupUrl = wa(`Merhaba, ${p.name} sipariş etmek istiyorum.`);
+      card.innerHTML = `
+        ${imgHtml}
+        <div class="card-body">
+          <h3>${esc(p.name)}</h3>
+          <p>${esc(p.desc || '')}</p>
+          ${priceHtml}
+          <a class="card-wa" href="${esc(cupUrl)}" target="_blank" rel="noopener">Sipariş Ver</a>
+        </div>`;
+      cg.appendChild(card);
+    });
+  }
+
+  /* ---------- Form önce düzeni (v7.2) ---------- */
+  // formFirst: true → Sipariş formu ürün vitrininin ÜSTÜNE taşınır.
+  // false / tanımsız = klasik düzen (vitrin önce). HTML'e dokunmadan çalışır.
+  if (C.formFirst) {
+    const sip = document.getElementById('siparis');
+    const ur = document.getElementById('urunler');
+    if (sip && ur) ur.parentNode.insertBefore(sip, ur);
+  }
+
+  /* ---------- Lightbox (v7) ---------- */
+  // Fotoğrafı olan ürünler arasında iki yönlü gezinme:
+  // sağ yarıya dokun = SONRAKİ, sol yarıya dokun = ÖNCEKİ (döngülü).
+  // Swipe ve ← → klavye tuşları da çalışır. lightboxEnabled: false = kapalı.
+  if (C.lightboxEnabled !== false) {
+    const lbItems = C.products.filter(p => p.img);
+    if (lbItems.length) {
+      let lbIdx = 0, lbEl = null, startX = null, moved = false;
+
+      function lbRender() {
+        const p = lbItems[lbIdx];
+        const img = lbEl.querySelector('img');
+        img.style.opacity = '0';
+        const swap = () => {
+          img.src = p.img;
+          img.alt = p.name;
+          img.style.opacity = '1';
+        };
+        matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? swap() : setTimeout(swap, 120);
+        lbEl.querySelector('.lb-cap').textContent = p.name;
+        lbEl.querySelector('.lb-count').textContent = (lbIdx + 1) + ' / ' + lbItems.length;
+      }
+      function lbStep(dir) {
+        lbIdx = (lbIdx + dir + lbItems.length) % lbItems.length;  // döngü
+        lbRender();
+      }
+      function lbClose() {
+        lbEl.classList.remove('on');
+        setTimeout(() => { lbEl.remove(); lbEl = null; }, 220);
+        document.body.style.overflow = '';
+        document.removeEventListener('keydown', lbKeys);
+      }
+      function lbKeys(e) {
+        if (e.key === 'Escape') lbClose();
+        if (e.key === 'ArrowRight') lbStep(1);
+        if (e.key === 'ArrowLeft') lbStep(-1);
+      }
+      function lbOpen(idx) {
+        lbIdx = idx;
+        lbEl = document.createElement('div');
+        lbEl.className = 'lb-overlay';
+        lbEl.innerHTML =
+          `<span class="lb-count"></span>` +
+          `<button class="lb-close" type="button" aria-label="Kapat">✕</button>` +
+          `<span class="lb-arrow l">‹</span><img alt=""><span class="lb-arrow r">›</span>` +
+          `<div class="lb-cap"></div>`;
+        document.body.appendChild(lbEl);
+        document.body.style.overflow = 'hidden';
+        lbRender();
+        requestAnimationFrame(() => lbEl.classList.add('on'));
+        document.addEventListener('keydown', lbKeys);
+
+        lbEl.querySelector('.lb-close').addEventListener('click', e => {
+          e.stopPropagation(); lbClose();
+        });
+        // Swipe takibi — parmak 40px'ten fazla kaydıysa dokunma sayılmaz
+        lbEl.addEventListener('pointerdown', e => { startX = e.clientX; moved = false; });
+        lbEl.addEventListener('pointermove', e => {
+          if (startX !== null && Math.abs(e.clientX - startX) > 40) moved = true;
+        });
+        lbEl.addEventListener('pointerup', e => {
+          if (moved) {                                  // swipe
+            lbStep(e.clientX < startX ? 1 : -1);
+          } else {                                      // dokunma: yarıya göre yön
+            lbStep(e.clientX > innerWidth / 2 ? 1 : -1);
+          }
+          startX = null; moved = false;
+        });
+      }
+
+      // Kart görsellerine tıklama bağla
+      let seen = 0;
+      C.products.forEach((p, i) => {
+        if (!p.img) return;
+        const idx = seen++;
+        const imgEl = pg.children[i].querySelector('img.card-img');
+        if (imgEl) imgEl.addEventListener('click', () => lbOpen(idx));
+      });
+    }
+  }
+
+  /* ---------- Eksik bilgi bekçisi (v7) ---------- */
+  // Kritik alan boş / placeholder kaldıysa tepeye kırmızı bant basar.
+  // Doğru doldurulmuş demoda bu kod hiçbir şey yapmaz.
+  (function guard() {
+    const bad = v => !v || /XXX|Örnek|REPO-ADI|Slogan buraya|000 TL/i.test(String(v));
+    const missing = [];
+    if (bad(C.name))     missing.push('pastane adı');
+    if (bad(C.phone))    missing.push('telefon');
+    if (bad(C.whatsapp)) missing.push('WhatsApp numarası');
+    if (bad(C.instagram))missing.push('Instagram');
+    (C.branches || []).forEach((b, i) => {
+      if (bad(b.address) || bad(b.phone)) missing.push('şube ' + (i+1) + ' bilgisi');
+    });
+    const og = document.querySelector('meta[property="og:title"]');
+    if (og && bad(og.content)) missing.push('OG etiketleri (head içinde, elle)');
+    if (missing.length) {
+      const b = document.createElement('div');
+      b.className = 'guard-banner';
+      b.innerHTML = '⚠️ <b>DEMO YAYINA HAZIR DEĞİL</b> — Eksik/placeholder: ' + missing.join(', ') +
+        ". Bilgi bulunamadıysa uydurma, Yusuf'a sor.";
+      document.body.prepend(b);
+    }
+  })();
+
+  /* ---------- Sepet (menü boşsa kendiliğinden kapalı) ---------- */
+  if (C.cartEnabled && hasMenu) {
+    const cart = new Map();   // "ci-ii" -> {name, price, qty}
+    const floatBtn = document.getElementById('cartFloat');
+    const panel = document.getElementById('cartPanel');
+    const badge = document.getElementById('cartBadge');
+    const itemsEl = document.getElementById('cartItems');
+
+    function openCart(){ panel.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeCart(){ panel.classList.remove('open'); document.body.style.overflow = ''; }
+
+    // Şube seçenekleri
+    document.getElementById('cfBranch').innerHTML =
+      C.branches.map(b => `<option value="${esc(b.name)}">${esc(b.name)}</option>`).join('');
+
+    // Ödeme yöntemi seçimi (v6) — seçim değişince toplam yeniden hesaplanır
+    if (payOn) {
+      document.getElementById('cfPayGroup').style.display = '';
+      const cp = document.getElementById('cfPay');
+      cp.innerHTML = payOptHtml;
+      cp.addEventListener('change', () => renderCart());
+    }
+
+    // v7.1: teslimat yöntemi (adres kutulu) + teslim saati
+    if (dmOn) {
+      document.getElementById('cfDeliveryGroup').style.display = '';
+      const cd = document.getElementById('cfDelivery');
+      cd.innerHTML = dmOptHtml;
+      const syncAddr = () => {
+        document.getElementById('cfAddressGroup').style.display = dmNeedsAddr(cd.value) ? '' : 'none';
+      };
+      cd.addEventListener('change', syncAddr);
+      syncAddr();
+    }
+    if (timeOn) {
+      document.getElementById('cfTimeGroup').style.display = '';
+      document.getElementById('cfTime').innerHTML = timeOpts;
+    }
+
+    const cartSum = () => [...cart.values()].reduce((a, v) =>
+      a + parseTL(v.price) * v.qty, 0);
+
+    function renderCart() {
+      const total = [...cart.values()].reduce((a,v)=>a+v.qty, 0);
+      badge.textContent = total;
+      floatBtn.style.display = total > 0 ? 'flex' : 'none';
+
+      const totEl = document.getElementById('cartTotal');
+      if (cart.size === 0) {
+        itemsEl.innerHTML = '<p class="cart-empty">Sepetiniz boş. Menüden + ile ürün ekleyebilirsiniz.</p>';
+        totEl.style.display = 'none';
+        return;
+      }
+      const sub = cartSum();
+      const dc = discCalc(sub, payOn ? document.getElementById('cfPay').value : '');
+      if (dc.rate > 0) {
+        totEl.innerHTML =
+          `<span style="font-weight:700;font-size:.92rem;opacity:.75">Ara Toplam: ${fmtTL(sub)}</span><br>` +
+          (siteDisc ? `<span style="font-weight:700;font-size:.92rem;color:var(--primary)">Site Siparişi İndirimi (%${siteDisc}): −${fmtTL(dc.siteAmt)}</span><br>` : '') +
+          (dc.pd ? `<span style="font-weight:700;font-size:.92rem;color:var(--primary)">Ödeme Yöntemi İndirimi (%${dc.pd}): −${fmtTL(dc.payAmt)}</span><br>` : '') +
+          `Ödenecek Toplam: ${fmtTL(dc.total)}`;
+      } else {
+        totEl.textContent = 'Toplam: ' + fmtTL(sub);
+      }
+      totEl.style.display = 'block';
+      itemsEl.innerHTML = [...cart.entries()].map(([key, v]) => `
+        <div class="cart-item">
+          <span class="ci-name">${esc(v.name)}</span>
+          <span class="ci-price">${esc(v.price)}</span>
+          <span class="cart-qty">
+            <button type="button" data-dec="${key}">−</button>
+            <span>${v.qty}</span>
+            <button type="button" data-inc="${key}">+</button>
+          </span>
+        </div>`).join('');
+    }
+
+    function syncMenu() {
+      document.querySelectorAll('.menu-ctrl').forEach(ctrl => {
+        const v = cart.get(ctrl.dataset.key);
+        const qty = v ? v.qty : 0;
+        ctrl.querySelector('.menu-qty').textContent = qty;
+        ctrl.classList.toggle('active', qty > 0);
+      });
+    }
+
+    document.getElementById('menuWrap').addEventListener('click', e => {
+      const add = e.target.closest('.menu-add');
+      const sub = e.target.closest('.menu-sub');
+      const btn = add || sub;
+      if (!btn) return;
+      const key = btn.dataset.ci + '-' + btn.dataset.ii;
+      const it = C.menu[+btn.dataset.ci].items[+btn.dataset.ii];
+      const cur = cart.get(key);
+
+      if (add) {
+        cart.set(key, { name: it.name, price: it.price, qty: cur ? cur.qty + 1 : 1 });
+        // Panel AÇILMAZ — rozet zıplayarak "eklendi" geri bildirimi verir
+        badge.classList.remove('pop');
+        void badge.offsetWidth;
+        badge.classList.add('pop');
+      } else if (cur) {
+        cur.qty--;
+        if (cur.qty <= 0) cart.delete(key);
+      }
+      renderCart();
+      syncMenu();
+    });
+
+    itemsEl.addEventListener('click', e => {
+      const inc = e.target.closest('[data-inc]');
+      const dec = e.target.closest('[data-dec]');
+      if (inc) { const v = cart.get(inc.dataset.inc); v.qty++; }
+      if (dec) {
+        const k = dec.dataset.dec, v = cart.get(k);
+        v.qty--; if (v.qty <= 0) cart.delete(k);
+      }
+      if (inc || dec) { renderCart(); syncMenu(); }
+    });
+
+    floatBtn.addEventListener('click', openCart);
+    document.getElementById('cartBack').addEventListener('click', closeCart);
+
+    document.getElementById('cfSubmit').addEventListener('click', () => {
+      if (C.vacationLock && C.vacationNote) { alert(C.vacationNote); return; }
+      if (cart.size === 0) { alert('Sepetiniz boş.'); return; }
+      const name = document.getElementById('cfName').value.trim();
+      const phone = document.getElementById('cfPhone').value.trim();
+      const date = document.getElementById('cfDate').value;
+      const branch = document.getElementById('cfBranch').value;
+      const msg = document.getElementById('cfMsg').value.trim();
+
+      if (!name) { alert('Lütfen adınızı girin.'); return; }
+      if (!phone) { alert('Lütfen telefon numaranızı girin.'); return; }
+      if (!date) { alert('Lütfen teslim tarihini seçin.'); return; }
+      const cdEl = document.getElementById('cfDate');
+      if (cdEl.min && date < cdEl.min) {
+        alert('Siparişler en az ' + C.orderForm.minDaysAhead + ' gün önceden alınmaktadır. Lütfen daha ileri bir tarih seçin.');
+        return;
+      }
+
+      const dmNameCf = dmOn ? document.getElementById('cfDelivery').value : '';
+      const addrCf = (dmOn && dmNeedsAddr(dmNameCf)) ? document.getElementById('cfAddress').value.trim() : '';
+      if (dmOn && dmNeedsAddr(dmNameCf) && !addrCf) { alert('Lütfen teslimat adresini girin.'); return; }
+      const timeCf = timeOn ? document.getElementById('cfTime').value : '';
+
+      let text = `🛒 *SİPARİŞ LİSTESİ*\n\n`;
+      [...cart.values()].forEach(v => { text += `▸ ${v.qty} adet ${v.name}\n`; });
+      const subT = cartSum();
+      const payNameSel = payOn ? document.getElementById('cfPay').value : '';
+      const dcT = discCalc(subT, payNameSel);
+      if (dcT.rate > 0) {
+        text += `\n💰 *Ara Toplam:* ${fmtTL(subT)}\n`;
+        if (siteDisc) text += `✨ *Site Siparişi İndirimi (%${siteDisc}):* -${fmtTL(dcT.siteAmt)}\n`;
+        if (dcT.pd) text += `✨ *Ödeme Yöntemi İndirimi (%${dcT.pd}):* -${fmtTL(dcT.payAmt)}\n`;
+        text += `💵 *Ödenecek Toplam:* ${fmtTL(dcT.total)}\n`;
+      } else {
+        text += `\n💰 *Toplam:* ${fmtTL(subT)}\n`;
+      }
+      if (payOn) text += `💳 *Ödeme Yöntemi:* ${payNameSel}\n`;
+      text += `👤 *Ad Soyad:* ${name}\n`;
+      text += `📞 *Telefon:* ${phone}\n`;
+      text += `📅 *Teslim Tarihi:* ${date}\n`;
+      text += `🏪 *Şube:* ${branch}\n`;
+      if (dmNameCf) text += `🚚 *Teslimat:* ${dmNameCf}\n`;
+      if (addrCf) text += `📍 *Adres:* ${addrCf}\n`;
+      if (timeCf) text += `🕐 *Teslim Saati:* ${timeCf}\n`;
+      if (msg) text += `📝 *Not:* ${msg}\n`;
+
+      logSheet({
+        tur: 'Menü Siparişi',
+        adSoyad: name, telefon: phone, tarih: date, saat: timeCf,
+        porsiyon: '', icerik: '', krema: '',
+        sube: branch, teslimat: dmNameCf, adres: addrCf, mum: '',
+        odeme: payNameSel, tahmin: '',
+        urunler: [...cart.values()].map(v => v.qty + ' x ' + v.name).join(', '),
+        toplam: fmtTL(dcT.total),
+        not: msg
+      });
+      window.open(`https://wa.me/${C.whatsapp}?text=${encodeURIComponent(text)}`, '_blank');
+    });
+
+    // Sepet en üstteyken aşağı çekmeye devam edilirse kapanır (pull-to-close)
+    let touchY = null, pullDist = 0;
+    panel.addEventListener('touchstart', e => {
+      touchY = e.touches[0].clientY;
+      pullDist = 0;
+    }, {passive:true});
+    panel.addEventListener('touchmove', e => {
+      if (touchY === null) return;
+      const dy = e.touches[0].clientY - touchY;
+      if (panel.scrollTop <= 0 && dy > 0) {
+        pullDist = dy;
+        panel.classList.add('dragging');
+        panel.style.transform = `translateY(${Math.min(dy * 0.6, 180)}px)`;
+        if (e.cancelable) e.preventDefault();
+      } else {
+        pullDist = 0;
+      }
+    }, {passive:false});
+    panel.addEventListener('touchend', () => {
+      panel.classList.remove('dragging');
+      panel.style.transform = '';
+      if (pullDist > 90) closeCart();
+      touchY = null; pullDist = 0;
+    });
+
+    renderCart();
+  }
+
+  // Dijital menü
+  const menuSubEl = document.getElementById('menuSub');
+  if (menuSubEl) menuSubEl.textContent = C.menuNote || '';
+  const mw = document.getElementById('menuWrap');
+  (C.menu || []).forEach((cat, ci)=>{
+    const div = document.createElement('div');
+    div.className = 'menu-cat reveal';
+    div.innerHTML = `<h3>${esc(cat.category)}</h3>` +
+      cat.items.map((it, ii)=>`
+        <div class="menu-item">
+          <span>${esc(it.name)}</span>
+          <span class="dots"></span>
+          <span class="price">${esc(it.price)}</span>
+          ${C.cartEnabled ? `<span class="menu-ctrl" data-key="${ci}-${ii}">
+            <button type="button" class="menu-sub" data-ci="${ci}" data-ii="${ii}" aria-label="${esc(it.name)} sepetten çıkar">−</button>
+            <span class="menu-qty">0</span>
+            <button type="button" class="menu-add" data-ci="${ci}" data-ii="${ii}" aria-label="${esc(it.name)} sepete ekle">+</button>
+          </span>` : ''}
+        </div>` +
+        (it.desc ? `<div class="menu-desc">${esc(it.desc)}</div>` : '') +
+        (it.cal ? `<div class="menu-cal">~${esc(it.cal)} kalori</div>` : '')
+      ).join('');
+    mw.appendChild(div);
+  });
+
+  // Şube kartları
+  const bg = document.getElementById('branchGrid');
+  C.branches.forEach((b,i)=>{
+    const el = document.createElement('div');
+    el.className = 'branch reveal';
+    el.style.transitionDelay = (i%3)*90 + 'ms';
+    el.innerHTML = `
+      <h3>${esc(b.name)}</h3>
+      <p>${esc(b.address)}</p>
+      <p class="hours">🕐 ${esc(b.hours)}</p>
+      <div class="branch-actions">
+        <a href="${esc(b.mapsUrl)}" target="_blank" rel="noopener">Yol Tarifi</a>
+        <a href="tel:${esc(b.phone)}">Ara</a>
+      </div>`;
+    bg.appendChild(el);
+  });
+
+  // Özel pasta sipariş formu
+  if (C.orderForm) {
+    document.getElementById('siparis').style.display = '';
+    const of = document.getElementById('orderForm');
+    const branchOpts = C.branches.map(b => `<option value="${esc(b.name)}">${esc(b.name)}</option>`).join('');
+    const mkPortions = list => list.map(p => `<option value="${esc(p)}">${esc(p)} Kişilik</option>`).join('');
+    const portionOpts = mkPortions(C.orderForm.portions);
+    const creamOpts = C.orderForm.creams.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('');
+    const PP = C.orderForm.portionPrices || {};
+    const FE = C.orderForm.flavorExtras || {};
+    const pricingOn = Object.keys(PP).length > 0;
+    const flavorBoxes = C.orderForm.flavors.map((f,i) =>
+      `<label><input type="checkbox" name="flavor" value="${esc(f)}"> ${esc(f)}${
+        FE[f] ? ` (+${FE[f]} TL)` : ''
+      }</label>`
+    ).join('');
+
+    const hasWedding = Array.isArray(C.orderForm.weddingPortions) && C.orderForm.weddingPortions.length > 0;
+    const rulesBox = (Array.isArray(C.orderForm.rules) && C.orderForm.rules.length)
+      ? `<div class="form-rules-box"><h4>Sipariş Koşulları</h4><ul>${
+          C.orderForm.rules.map(r => `<li>${esc(r)}</li>`).join('')
+        }</ul></div>` : '';
+    const noteBox = C.orderForm.photoNote
+      ? `<div class="form-note-box">${esc(C.orderForm.photoNote)}</div>` : '';
+    const typeSelect = hasWedding ? `
+      <div class="form-group">
+        <label>Pasta Türü</label>
+        <select id="ofType">
+          <option value="ozel">Doğum Günü / Özel Pasta</option>
+          <option value="dugun">Düğün / Nişan Pastası</option>
+        </select>
+      </div>` : '';
+
+    of.innerHTML = `
+      ${rulesBox}
+      ${noteBox}
+      ${typeSelect}
+      <div class="form-group">
+        <label>Ad Soyad</label>
+        <input type="text" id="ofName" placeholder="Adınız Soyadınız">
+      </div>
+      <div class="form-group">
+        <label>Telefon</label>
+        <input type="tel" id="ofPhone" placeholder="(5XX) XXX XX XX">
+      </div>
+      <div class="form-group">
+        <label>Teslim Tarihi</label>
+        <input type="date" id="ofDate">
+      </div>
+      <div class="form-group">
+        <label>Porsiyon Sayısı</label>
+        <select id="ofPortion">${portionOpts}</select>
+      </div>
+      <div class="form-group">
+        <label id="ofFlavorsLabel">İçerik Seçimi</label>
+        <div class="checkbox-grid" id="ofFlavors">${flavorBoxes}</div>
+      </div>
+      <div class="form-group">
+        <label>Kek & Krema</label>
+        <select id="ofCream">${creamOpts}</select>
+      </div>
+      <div class="form-group">
+        <label>Teslim Alınacak Şube</label>
+        <select id="ofBranch">${branchOpts}</select>
+      </div>
+      ${dmOn ? `<div class="form-group">
+        <label>Teslimat</label>
+        <select id="ofDelivery">${dmOptHtml}</select>
+      </div>
+      <div class="form-group" id="ofAddressGroup" style="display:none">
+        <label>Teslimat Adresi</label>
+        <textarea id="ofAddress" placeholder="Mahalle, cadde, no, ilçe / şehir..."></textarea>
+      </div>` : ''}
+      ${timeOn ? `<div class="form-group">
+        <label>Teslim Saati</label>
+        <select id="ofTime">${timeOpts}</select>
+      </div>` : ''}
+      ${candleOn ? `<div class="form-group">
+        <label>Mum</label>
+        <select id="ofCandle"><option value="">Mum İstemiyorum</option>${candleOptHtml}</select>
+      </div>
+      <div class="form-group" id="ofCandleQtyGroup" style="display:none">
+        <label>Mum Adedi</label>
+        <input type="number" id="ofCandleQty" min="1" value="1" inputmode="numeric">
+      </div>` : ''}
+      ${payOn ? `<div class="form-group">
+        <label>Ödeme Yöntemi</label>
+        <select id="ofPay">${payOptHtml}</select>
+      </div>` : ''}
+      <div class="form-group">
+        <label>Mesajınız</label>
+        <textarea id="ofMsg" placeholder="Özel isteğinizi yazabilirsiniz..."></textarea>
+      </div>
+      ${pricingOn ? '<div class="price-estimate" id="ofEstimate"></div>' : ''}
+      <button type="button" class="btn-order" id="ofSubmit">
+        WhatsApp'tan Gönder ❯
+      </button>
+      <div class="form-notes" id="ofNotes"></div>
+    `;
+
+    // v7.1: teslimat adres kutusu + mum adet kutusu
+    if (dmOn) {
+      const od = document.getElementById('ofDelivery');
+      const syncAddr = () => {
+        document.getElementById('ofAddressGroup').style.display = dmNeedsAddr(od.value) ? '' : 'none';
+      };
+      od.addEventListener('change', syncAddr);
+      syncAddr();
+    }
+    const candleOf = () => {
+      if (!candleOn) return null;
+      const n = document.getElementById('ofCandle').value;
+      if (!n) return null;
+      const c = CANDLES.find(x => x.name === n);
+      const q = (c && c.qty)
+        ? Math.max(1, parseInt(document.getElementById('ofCandleQty').value, 10) || 1)
+        : 1;
+      return { name: n, qty: q, price: ((c && c.price) || 0) * q };
+    };
+    if (candleOn) {
+      const oc = document.getElementById('ofCandle');
+      const syncCandle = () => {
+        const c = CANDLES.find(x => x.name === oc.value);
+        document.getElementById('ofCandleQtyGroup').style.display = (c && c.qty) ? '' : 'none';
+        if (pricingOn) updateEstimate();
+      };
+      oc.addEventListener('change', syncCandle);
+      document.getElementById('ofCandleQty') &&
+        document.getElementById('ofCandleQty').addEventListener('input', () => { if (pricingOn) updateEstimate(); });
+    }
+
+    /* ---------- İçerik sınırı — flavorLimits (v7.2) ---------- */
+    // orderForm.flavorLimits: { "2-4": 2, "default": 2 } gibi.
+    // Porsiyona göre en fazla N iç malzeme; flavorExtras'taki ÜCRETLİ
+    // ekstralar limite DAHİL DEĞİL. Boş {} = sınır yok, hiçbir şey değişmez.
+    const FL = C.orderForm.flavorLimits || {};
+    const flOn = Object.keys(FL).length > 0;
+    const flLimit = () => {
+      if (!flOn) return Infinity;
+      const p = document.getElementById('ofPortion').value;
+      const v = FL[p] !== undefined ? FL[p] : FL.default;
+      return (v === undefined || v === null || v <= 0) ? Infinity : v;
+    };
+    const flCount = () => [...document.querySelectorAll('#ofFlavors input:checked')]
+      .filter(cb => !FE[cb.value]).length;
+    function syncFlavorLimit() {
+      if (!flOn) return;
+      const lim = flLimit();
+      const lb = document.getElementById('ofFlavorsLabel');
+      if (lb) lb.textContent = 'İçerik Seçimi' + (isFinite(lim) ? ` (en fazla ${lim})` : '');
+      const full = flCount() >= lim;
+      document.querySelectorAll('#ofFlavors input').forEach(cb => {
+        if (FE[cb.value]) return;            // ücretli ekstralar serbest
+        cb.disabled = full && !cb.checked;
+        const l = cb.closest('label');
+        if (l) l.style.opacity = cb.disabled ? '.45' : '';
+      });
+    }
+    if (flOn) {
+      document.getElementById('ofFlavors').addEventListener('change', syncFlavorLimit);
+      document.getElementById('ofPortion').addEventListener('change', syncFlavorLimit);
+      syncFlavorLimit();
+    }
+
+    // Tahmini fiyat: porsiyon taban fiyatı + seçili içerik ek ücretleri
+    function calcEstimate() {
+      const base = PP[document.getElementById('ofPortion').value];
+      if (base === undefined) return null;   // bu porsiyon için fiyat girilmemiş
+      let total = base;
+      document.querySelectorAll('#ofFlavors input:checked')
+        .forEach(cb => { total += FE[cb.value] || 0; });
+      const cnd = candleOf();
+      if (cnd) total += cnd.price;
+      return total;
+    }
+    function updateEstimate() {
+      const el = document.getElementById('ofEstimate');
+      if (!el) return;
+      const t = calcEstimate();
+      const noteHtml = C.orderForm.priceNote
+        ? `<span class="pe-note">${esc(C.orderForm.priceNote)}</span>` : '';
+      if (t === null) {
+        el.innerHTML = `Tahmini Fiyat:<b>Şef belirleyecektir</b>${noteHtml}`;
+        return;
+      }
+      const dEst = discCalc(t, payOn ? document.getElementById('ofPay').value : '');
+      el.innerHTML = dEst.rate > 0
+        ? `Tahmini Fiyat: <s style="opacity:.55">${fmtTL(t)}</s><b>${fmtTL(dEst.total)}</b>` +
+          `<span class="pe-note">%${dEst.rate} indirim uygulandı (site siparişi${dEst.pd ? ' + ödeme yöntemi' : ''})</span>${noteHtml}`
+        : `Tahmini Fiyat:<b>${fmtTL(t)}</b>${noteHtml}`;
+    }
+    if (pricingOn) {
+      document.getElementById('ofPortion').addEventListener('change', updateEstimate);
+      document.getElementById('ofFlavors').addEventListener('change', updateEstimate);
+      if (payOn) document.getElementById('ofPay').addEventListener('change', updateEstimate);
+      updateEstimate();
+    }
+
+    // Pasta türü değişince porsiyon listesi de değişir
+    if (hasWedding) {
+      document.getElementById('ofType').addEventListener('change', function() {
+        document.getElementById('ofPortion').innerHTML =
+          this.value === 'dugun'
+            ? mkPortions(C.orderForm.weddingPortions)
+            : mkPortions(C.orderForm.portions);
+        if (pricingOn) updateEstimate();
+        if (flOn) syncFlavorLimit();
+      });
+    }
+
+    // Form notları
+    const notesEl = document.getElementById('ofNotes');
+    if (C.orderForm.notes) {
+      notesEl.innerHTML = C.orderForm.notes.map(esc).join('<br>');
+    }
+
+    // Submit → WhatsApp
+    document.getElementById('ofSubmit').addEventListener('click', function() {
+      const name = document.getElementById('ofName').value.trim();
+      const phone = document.getElementById('ofPhone').value.trim();
+      const date = document.getElementById('ofDate').value;
+      const portion = document.getElementById('ofPortion').value;
+      const cream = document.getElementById('ofCream').value;
+      const branch = document.getElementById('ofBranch').value;
+      const msg = document.getElementById('ofMsg').value.trim();
+
+      const flavors = [...document.querySelectorAll('#ofFlavors input:checked')]
+        .map(cb => cb.value);
+
+      if (C.vacationLock && C.vacationNote) { alert(C.vacationNote); return; }
+      if (!name) { alert('Lütfen adınızı girin.'); return; }
+      if (!date) { alert('Lütfen teslim tarihini seçin.'); return; }
+      if (flOn && flavors.filter(f => !FE[f]).length > flLimit()) {
+        alert('En fazla ' + flLimit() + ' iç malzeme seçebilirsiniz (ücretli ekstralar hariç).');
+        return;
+      }
+      const dEl = document.getElementById('ofDate');
+      if (dEl.min && date < dEl.min) {
+        alert('Siparişler en az ' + C.orderForm.minDaysAhead + ' gün önceden alınmaktadır. Lütfen daha ileri bir tarih seçin.');
+        return;
+      }
+
+      const dmNameOf = dmOn ? document.getElementById('ofDelivery').value : '';
+      const addrOf = (dmOn && dmNeedsAddr(dmNameOf)) ? document.getElementById('ofAddress').value.trim() : '';
+      if (dmOn && dmNeedsAddr(dmNameOf) && !addrOf) { alert('Lütfen teslimat adresini girin.'); return; }
+      const timeOf = timeOn ? document.getElementById('ofTime').value : '';
+      const cndOf = candleOf();
+
+      const isWedding = hasWedding && document.getElementById('ofType').value === 'dugun';
+      let text = isWedding ? `🎂 *DÜĞÜN PASTASI SİPARİŞİ*\n\n` : `🎂 *ÖZEL PASTA SİPARİŞİ*\n\n`;
+      text += `👤 *Ad Soyad:* ${name}\n`;
+      if (phone) text += `📞 *Telefon:* ${phone}\n`;
+      text += `📅 *Teslim Tarihi:* ${date}\n`;
+      text += `🍰 *Porsiyon:* ${portion} Kişilik\n`;
+      if (flavors.length) text += `🧁 *İçerik:* ${flavors.join(', ')}\n`;
+      text += `🎨 *Kek & Krema:* ${cream}\n`;
+      text += `🏪 *Şube:* ${branch}\n`;
+      if (dmNameOf) text += `🚚 *Teslimat:* ${dmNameOf}\n`;
+      if (addrOf) text += `📍 *Adres:* ${addrOf}\n`;
+      if (timeOf) text += `🕐 *Teslim Saati:* ${timeOf}\n`;
+      if (cndOf) text += `🕯️ *Mum:* ${cndOf.qty > 1 ? cndOf.qty + ' adet ' : ''}${cndOf.name}\n`;
+      if (payOn) text += `💳 *Ödeme Yöntemi:* ${document.getElementById('ofPay').value}\n`;
+      if (pricingOn) {
+        const est = calcEstimate();
+        if (est !== null) {
+          const dEst = discCalc(est, payOn ? document.getElementById('ofPay').value : '');
+          if (dEst.rate > 0) {
+            text += `💰 *Tahmini Fiyat:* ${fmtTL(est)}\n`;
+            text += `✨ *İndirimli Tahmini Fiyat (yüzde ${dEst.rate}):* ${fmtTL(dEst.total)}`;
+          } else {
+            text += `💰 *Tahmini Fiyat:* ${fmtTL(est)}`;
+          }
+          if (C.orderForm.priceNote) text += ` (${C.orderForm.priceNote})`;
+          text += `\n`;
+        }
+      }
+      if (msg) text += `📝 *Not:* ${msg}\n`;
+      text += `\n📸 Aklınızdaki pastanın örnek fotoğrafı varsa bu mesajın ardından gönderebilirsiniz.`;
+
+      logSheet({
+        tur: isWedding ? 'Düğün Pastası' : 'Özel Pasta',
+        adSoyad: name, telefon: phone, tarih: date, saat: timeOf,
+        porsiyon: portion + ' Kişilik', icerik: flavors.join(', '), krema: cream,
+        sube: branch, teslimat: dmNameOf, adres: addrOf,
+        mum: cndOf ? (cndOf.qty + ' x ' + cndOf.name) : '',
+        odeme: payOn ? document.getElementById('ofPay').value : '',
+        tahmin: (() => {
+          if (!pricingOn) return '';
+          const e2 = calcEstimate();
+          if (e2 === null) return '';
+          return fmtTL(discCalc(e2, payOn ? document.getElementById('ofPay').value : '').total);
+        })(),
+        urunler: '', toplam: '',
+        not: msg
+      });
+      window.open(`https://wa.me/${C.whatsapp}?text=${encodeURIComponent(text)}`, '_blank');
+    });
+  }
+
+  // SSS bölümü
+  if (Array.isArray(C.faq) && C.faq.length) {
+    document.getElementById('sss').style.display = '';
+    document.getElementById('faqWrap').innerHTML = C.faq.map(f =>
+      `<details class="faq-item"><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`
+    ).join('');
+  }
+
+  // Minimum sipariş tarihi (iki formda da)
+  const mda = (C.orderForm && C.orderForm.minDaysAhead) || 0;
+  if (mda > 0) {
+    const d = new Date();
+    d.setDate(d.getDate() + mda);
+    const min = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    ['ofDate', 'cfDate'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.min = min;
+    });
+  }
+
+  // Logo açılış efekti — oturum başına 1 kez
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (C.intro && C.logo && !reducedMotion) {
+    let shown = false;
+    try { shown = sessionStorage.getItem('introShown') === '1'; } catch(e) {}
+    if (!shown) {
+      try { sessionStorage.setItem('introShown', '1'); } catch(e) {}
+      const ov = document.createElement('div');
+      ov.className = 'intro-overlay';
+      ov.innerHTML = `<div class="intro-box"><img src="${C.logo}" alt=""><p class="intro-hi">Hoş Geldiniz</p></div>`;
+      document.body.appendChild(ov);
+      const img = ov.querySelector('img');
+      setTimeout(() => {
+        const target = document.getElementById('brandLogo');
+        if (target && target.style.display !== 'none') {
+          const tr = target.getBoundingClientRect();
+          const ir = img.getBoundingClientRect();
+          const dx = (tr.left + tr.width/2) - (ir.left + ir.width/2);
+          const dy = (tr.top + tr.height/2) - (ir.top + ir.height/2);
+          img.style.transform = `translate(${dx}px, ${dy}px) scale(${tr.width / ir.width})`;
+        }
+        ov.querySelector('.intro-hi').style.opacity = '0';
+        ov.classList.add('done');
+        setTimeout(() => ov.remove(), 950);
+      }, 1000);
+    }
+  }
+
+  // Mevsim parçacıkları — dokunulan yerden 4-6 emoji süzülür
+  if (C.particles && !reducedMotion) {
+    const SETS = {
+      kar:      ['❄️','❅','❆'],
+      yaprak:   ['🌿','🍃','☘️'],
+      meyve:    ['🍓','🍒','🥝','🍑','🍇'],
+      sonbahar: ['🍂','🍁']
+    };
+    const autoSet = () => {
+      const m = new Date().getMonth() + 1;
+      if (m === 12 || m <= 2) return SETS.kar;
+      if (m <= 5) return SETS.yaprak;
+      if (m <= 9) return SETS.meyve;
+      return SETS.sonbahar;
+    };
+    const set = C.particles === 'auto' ? autoSet() : (SETS[C.particles] || autoSet());
+    let live = 0;   // aynı anda maks 20 parçacık — ucuz telefon güvencesi
+    document.addEventListener('pointerdown', e => {
+      const n = 4 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < n && live < 20; i++) {
+        live++;
+        const s = document.createElement('span');
+        s.textContent = set[Math.floor(Math.random() * set.length)];
+        s.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;` +
+          `z-index:400;pointer-events:none;font-size:${18 + Math.random()*10}px;` +
+          `will-change:transform,opacity`;
+        document.body.appendChild(s);
+        const dx = (Math.random() - .5) * 130;
+        const anim = s.animate([
+          { transform: 'translate(-50%,-50%) rotate(0deg) scale(1)', opacity: 1 },
+          { transform: `translate(calc(-50% + ${dx}px), ${90 + Math.random()*80}px)` +
+            ` rotate(${(Math.random()-.5)*240}deg) scale(.2)`, opacity: 0 }
+        ], { duration: 2350 + Math.random()*400, easing: 'cubic-bezier(.25,.46,.45,.94)' });
+        anim.onfinish = () => { s.remove(); live--; };
+      }
+    }, { passive: true });
+  }
+
+  // Scroll reveal — threshold 0.12, tek seferlik
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+})();
+</script>
+</body>
+</html>
