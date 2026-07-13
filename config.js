@@ -89,7 +89,7 @@ const CONFIG = {
     text:     "#3A272E"
   },
 
-  decor: { img: "logo_3.jpg", opacity: 0.3, side: "left" },
+  decor: { img: "leaves.png", opacity: 0.3, side: "both" },
 
   formFirst: true,   // Butik: form ana ürün, pasta modelleri destek vitrini
   intro: true,
